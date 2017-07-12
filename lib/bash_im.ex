@@ -5,24 +5,22 @@ defmodule BashIM do
   }
 
   def get_random do
-    case HTTPoison.get(@urls[:random]) do
-      {:ok, response} ->
-        find_random(response.body)
-      {:error, _} ->
-        "error"
-    end
+    @urls[:random]
+    |> HTTPoison.get()
+    |> handle_response()
   end
 
   def get(id) do
-    case HTTPoison.get("#{@urls[:quote]}/#{id}") do
-      {:ok, response} ->
-          find_random(response.body)
-      {:error, _} ->
-        "error"
-    end
+    [ @urls[:quote], id ]
+    |> Enum.join("/")
+    |> HTTPoison.get()
+    |> handle_response()
   end
 
-  def find_random(body) do
+  defp handle_response({:ok, response}), do: {:ok, find_random(response.body)}
+  defp handle_response({:error, _}), do: {:error, "error"}
+
+  defp find_random(body) do
     try do
       result = body
                |> Floki.find("div.quote>div.text")
