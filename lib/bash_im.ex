@@ -1,7 +1,7 @@
 defmodule BashIM do
   @urls %{
-    random: 'http://bash.im/random',
-    quote: 'http://bash.im/quote'
+    random: "http://bash.im/random",
+    quote: "http://bash.im/quote"
   }
 
   def get_random do
@@ -27,7 +27,7 @@ defmodule BashIM do
       result = body
                |> Floki.find("div.quote>div.text")
                |> Enum.map(&Floki.text/1)
-               |> Enum.map(&Codepagex.to_string(&1, :'VENDORS/MICSFT/WINDOWS/CP1251'))
+               |> Enum.map(&Codepagex.to_string(&1, :"VENDORS/MICSFT/WINDOWS/CP1251"))
                |> Enum.filter(fn(x) -> elem(x, 0) == :ok end)
                |> Enum.random
       elem(result, 1)

@@ -22,6 +22,6 @@ defmodule ElixirBashimBot.Commands do
   end
 
   def handle_command(chat_id, _command, _args) do
-    Nadia.send_message(chat_id, 'Not a command. Send /help')
+    Nadia.send_message(chat_id, "Not a command. Send /help")
   end
 end
