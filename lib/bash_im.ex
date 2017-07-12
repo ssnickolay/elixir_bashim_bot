@@ -32,7 +32,7 @@ defmodule BashIM do
                |> Enum.random
       elem(result, 1)
     rescue
-      e in Enum.EmptyError ->
+      _e in Enum.EmptyError ->
         "Not found"
     end
   end
